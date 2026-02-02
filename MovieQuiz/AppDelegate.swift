@@ -23,6 +23,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didDiscardSceneSessions sceneSessions: Set<UISceneSession>
     ) {
-        sleep(3)
+//        sleep(3) Почему надо убрать данную строчку? Мило если ответите)
     }
 }
