@@ -22,5 +22,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(
         _ application: UIApplication,
         didDiscardSceneSessions sceneSessions: Set<UISceneSession>
-    ) {}
+    ) {
+//        sleep(3) Почему надо убрать данную строчку? Мило если ответите)
+    }
 }
