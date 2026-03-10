@@ -9,11 +9,14 @@ import UIKit
 
 final class AlertPresenter {
     func show(in vc: UIViewController, model: AlertModel) {
-        let alert = UIAlertController(title: model.title,
-                                      message: model.message,
-                                      preferredStyle: .alert) // preferredStyle может быть .alert или .actionSheet(окно, всплывающее снизу)
+        let alert = UIAlertController(
+            title: model.title,
+            message: model.message,
+            preferredStyle: .alert) // preferredStyle может быть .alert или .actionSheet(окно, всплывающее снизу)
         
-        let action = UIAlertAction(title: model.buttonText, style: .default) { _ in
+        let action = UIAlertAction(
+            title: model.buttonText,
+            style: .default) { _ in
             model.action()
         }
         
