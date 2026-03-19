@@ -1,5 +1,5 @@
 import UIKit
-// k_zcuw1ytf
+
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     @IBOutlet private weak var indexLabel: UILabel!
@@ -27,7 +27,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         setupServices()
         setupQuestionFactory()
         
-        showLoadingIndicator()
+        showOrHideLoadingIndicator(isShow: true)
         questionFactory?.loadData()
     }
     
@@ -46,12 +46,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     func didLoadDataFromServer() {
-        hideLoadingIndicator()
+        showOrHideLoadingIndicator(isShow: false)
         questionFactory?.requestNextQuestion()
     }
     
     func didFailToLoadData(with error: Error) {
-        showNetworkError()// message в качестве описания ошибки - showNetworkError(message: error.localizedDescription)
+        showNetworkError()
     }
     
     
@@ -134,18 +134,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showAnswerResult(isCorrect: isCorrect)
     }
     
-    private func showLoadingIndicator() {
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
-    }
-    
-    private func hideLoadingIndicator() {
-        activityIndicator.isHidden = true
-        activityIndicator.stopAnimating()
+    private func showOrHideLoadingIndicator(isShow: Bool) {
+        if isShow {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
     }
     
     private func showNetworkError() {
-        hideLoadingIndicator()
+        showOrHideLoadingIndicator(isShow: false)
         
         let model = AlertModel(title: "Что-то пошло не так(", message: "Невозможно загрузить данные", buttonText: "Попробовать еще раз", action: { [weak self] in
             guard let self else { return }
