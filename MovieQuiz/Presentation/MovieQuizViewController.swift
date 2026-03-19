@@ -16,6 +16,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = MovieQuizPresenter(viewController: self)
+        activityIndicator.hidesWhenStopped = true
     }
     
     func show(quiz step: QuizStepViewModel){
