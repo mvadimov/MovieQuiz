@@ -32,7 +32,6 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     func show(quiz result: QuizResultsViewModel) {
         let model = AlertModel(title: result.title, message: result.text, buttonText: result.buttonText, action: { [weak self] in
             guard let self else { return }
-            self.presenter.resetQuestionIndex()
             self.presenter.restartGame()
         })
         alertPresenter.show(in: self, model: model)
@@ -59,7 +58,6 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         
         let model = AlertModel(title: "Что-то пошло не так(", message: "Невозможно загрузить данные", buttonText: "Попробовать еще раз", action: { [weak self] in
             guard let self else { return }
-            self.presenter.resetQuestionIndex()
             self.presenter.restartGame()
         })
         

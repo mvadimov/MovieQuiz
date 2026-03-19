@@ -52,11 +52,6 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         currentQuestionIndex == questionsAmount - 1
     }
     
-    func resetQuestionIndex() {
-        currentQuestionIndex = 0
-        correctAnswers = 0
-    }
-    
     func switchToNextQuestion() {
         currentQuestionIndex += 1
     }

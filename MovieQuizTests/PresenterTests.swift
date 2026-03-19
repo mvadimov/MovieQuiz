@@ -21,6 +21,24 @@ final class MovieQuizPresenterTests: XCTestCase {
         XCTAssertEqual(viewModel.question, "Question Text")
         XCTAssertEqual(viewModel.questionNumber, "1/10")
     }
+    
+    func testPresenterIsLastQuestion() throws {
+        // Given
+        let sut = MovieQuizPresenter(viewController: MovieQuizViewControllerMock())
+        XCTAssertFalse(sut.isLastQuestion())
+        
+        for index in 0..<9 {
+            // When
+            sut.switchToNextQuestion()
+            
+            // Then
+            if index == 8 {
+                XCTAssertTrue(sut.isLastQuestion())
+            } else {
+                XCTAssertFalse(sut.isLastQuestion())
+            }
+        }
+    }
 }
 
 final class MovieQuizViewControllerMock: MovieQuizViewControllerProtocol {
@@ -28,18 +46,18 @@ final class MovieQuizViewControllerMock: MovieQuizViewControllerProtocol {
     }
     
     func show(quiz result: QuizResultsViewModel) {
-    
+        
     }
     
     func highlightImageBorder(isCorrect: Bool) {
-    
+        
     }
     
     func showOrHideLoadingIndicator(isShow: Bool) {
-    
+        
     }
     
     func showNetworkError() {
-    
+        
     }
 }
