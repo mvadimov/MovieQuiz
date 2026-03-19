@@ -7,7 +7,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private weak var questionLabel: UILabel!
     @IBOutlet private weak var noButton: UIButton!
     @IBOutlet private weak var yesButton: UIButton!
-
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     private var currentQuestionIndex = 0
 
     private var alertPresenter = AlertPresenter()
@@ -25,6 +26,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         super.viewDidLoad()
         setupServices()
         setupQuestionFactory()
+        
+        showOrHideLoadingIndicator(isShow: true)
+        questionFactory?.loadData()
     }
     
     // MARK: - QuestionFactoryDelegate
@@ -39,6 +43,15 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             guard let self else { return }
             self.show(quiz: self.convert(model: question))
         }
+    }
+    
+    func didLoadDataFromServer() {
+        showOrHideLoadingIndicator(isShow: false)
+        questionFactory?.requestNextQuestion()
+    }
+    
+    func didFailToLoadData(with error: Error) {
+        showNetworkError()
     }
     
     
@@ -66,7 +79,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         QuizStepViewModel(
-            image: model.image ?? UIImage(),
+            image:  UIImage(data: model.image) ?? UIImage(),
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
@@ -109,7 +122,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
 
     private func setupQuestionFactory() {
-        let questionFactory = QuestionFactory()
+        let questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         questionFactory.delegate = self
         self.questionFactory = questionFactory
         questionFactory.requestNextQuestion()
@@ -119,6 +132,27 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         guard let currentQuestion else { return }
         let isCorrect = isYes == currentQuestion.correctAnswer
         showAnswerResult(isCorrect: isCorrect)
+    }
+    
+    private func showOrHideLoadingIndicator(isShow: Bool) {
+        if isShow {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+    }
+    
+    private func showNetworkError() {
+        showOrHideLoadingIndicator(isShow: false)
+        
+        let model = AlertModel(title: "Что-то пошло не так(", message: "Невозможно загрузить данные", buttonText: "Попробовать еще раз", action: { [weak self] in
+            guard let self else { return }
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            self.questionFactory?.requestNextQuestion()
+        })
+        
+        alertPresenter.show(in: self, model: model)
     }
     
     // MARK: Actions
