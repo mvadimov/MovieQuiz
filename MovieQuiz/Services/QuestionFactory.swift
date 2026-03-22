@@ -53,10 +53,9 @@ final class QuestionFactory: QuestionFactoryProtocol {
                 return
             }
             
-            let rating = Float(movie.rating) ?? 0
-            
-            let text = "Рейтинг этого фильма больше чем 7?"
-            let correctAnswer = rating > 7
+            let questionData = generateRatingQuestion(movieRating: Float(movie.rating) ?? 0)
+            let text = questionData.text
+            let correctAnswer = questionData.correctAnswer
             
             let question = QuizQuestion(image: imageData,
                                         text: text,
@@ -67,5 +66,24 @@ final class QuestionFactory: QuestionFactoryProtocol {
                 self.delegate?.didReceiveNextQuestion(question: question)
             }
         }
+    }
+    
+    func generateRatingQuestion(movieRating: Float) -> (text: String, correctAnswer: Bool) {
+        let roundedRating = round(movieRating * 10) / 10
+        var questionRating: Float
+        
+        if roundedRating > 9.5 {
+            questionRating = Float(Int.random(in: 8...10))
+        } else if roundedRating < 0.5 {
+            questionRating = Float(Int.random(in: 1...3))
+        } else {
+            questionRating = roundedRating + Float.random(in: -0.2...0.2)
+        }
+        let roundedQuestionRating = round(questionRating * 10) / 10
+        
+        let text = "Рейтинг этого фильма больше чем \(roundedQuestionRating)?"
+        let correctAnswer = roundedRating > roundedQuestionRating
+        
+        return (text, correctAnswer)
     }
 }
