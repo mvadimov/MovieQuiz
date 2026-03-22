@@ -9,22 +9,29 @@ import XCTest
 @testable import MovieQuiz
 
 final class MovieQuizPresenterTests: XCTestCase {
+    var sut: MovieQuizPresenter!
+    var viewControllerMock: MovieQuizViewControllerMock!
+    
+    override func setUp(){
+        super.setUp()
+        // Given
+        viewControllerMock = MovieQuizViewControllerMock()
+        sut = MovieQuizPresenter(viewController: viewControllerMock)
+    }
+    
     func testPresenterConvertModel() throws {
-        let viewControllerMock = MovieQuizViewControllerMock()
-        let sut = MovieQuizPresenter(viewController: viewControllerMock)
-        
         let emptyData = Data()
+        // When
         let question = QuizQuestion(image: emptyData, text: "Question Text", correctAnswer: true)
         let viewModel = sut.convert(model: question)
         
-        XCTAssertEqual(viewModel.image, emptyData)
+        // Then
+        XCTAssertEqual(viewModel.imageData, emptyData)
         XCTAssertEqual(viewModel.question, "Question Text")
         XCTAssertEqual(viewModel.questionNumber, "1/10")
     }
     
-    func testPresenterIsLastQuestion() throws {
-        // Given
-        let sut = MovieQuizPresenter(viewController: MovieQuizViewControllerMock())
+    func testPresenterFuncWithCurrentQuestionIndex() throws {
         XCTAssertFalse(sut.isLastQuestion())
         
         for index in 0..<9 {
@@ -34,6 +41,8 @@ final class MovieQuizPresenterTests: XCTestCase {
             // Then
             if index == 8 {
                 XCTAssertTrue(sut.isLastQuestion())
+                sut.restartGame()
+                XCTAssertFalse(sut.isLastQuestion())
             } else {
                 XCTAssertFalse(sut.isLastQuestion())
             }
@@ -42,22 +51,9 @@ final class MovieQuizPresenterTests: XCTestCase {
 }
 
 final class MovieQuizViewControllerMock: MovieQuizViewControllerProtocol {
-    func show(quiz step: QuizStepViewModel) {
-    }
-    
-    func show(quiz result: QuizResultsViewModel) {
-        
-    }
-    
-    func highlightImageBorder(isCorrect: Bool) {
-        
-    }
-    
-    func showOrHideLoadingIndicator(isShow: Bool) {
-        
-    }
-    
-    func showNetworkError() {
-        
-    }
+    func show(quiz step: QuizStepViewModel) {}
+    func show(quiz result: QuizResultsViewModel) {}
+    func highlightImageBorder(isCorrect: Bool) {}
+    func showOrHideLoadingIndicator(isShow: Bool) {}
+    func showNetworkError() {}
 }

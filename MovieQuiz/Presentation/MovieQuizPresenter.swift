@@ -28,13 +28,12 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     // MARK: - QuestionFactoryDelegate
     func didReceiveNextQuestion(question: QuizQuestion?) {
-        guard let question = question else {
+        guard let question else {
             return
         }
         currentQuestion = question
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.viewController?.show(quiz: convert(model: question))
+        DispatchQueue.main.async {
+            self.viewController?.show(quiz: self.convert(model: question))
         }
     }
     
@@ -58,8 +57,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     private func showAnswerResult(isCorrect: Bool) {
         viewController?.highlightImageBorder(isCorrect: isCorrect)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            guard let self = self else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.showNextQuestionOrResult()
         }
     }
@@ -85,7 +83,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     func convert(model: QuizQuestion) -> QuizStepViewModel {
         QuizStepViewModel(
-            image: model.image,
+            imageData: model.image,
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }

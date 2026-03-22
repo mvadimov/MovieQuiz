@@ -17,11 +17,12 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         super.viewDidLoad()
         presenter = MovieQuizPresenter(viewController: self)
         activityIndicator.hidesWhenStopped = true
+        addAccessibilityIdentifiers()
     }
     
     func show(quiz step: QuizStepViewModel){
         indexLabel.text = step.questionNumber
-        previewImage.image = UIImage(data: step.image) ?? UIImage()
+        previewImage.image = UIImage(data: step.imageData) ?? UIImage()
         questionLabel.text = step.question
         
         previewImage.layer.borderWidth = 0
@@ -64,6 +65,12 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         alertPresenter.show(in: self, model: model)
     }
     
+    private func addAccessibilityIdentifiers() {
+        previewImage.accessibilityIdentifier = AccessibilityIdentifiers.poster
+        indexLabel.accessibilityIdentifier = AccessibilityIdentifiers.index
+        yesButton.accessibilityIdentifier = AccessibilityIdentifiers.yesButton
+        noButton.accessibilityIdentifier = AccessibilityIdentifiers.noButton
+    }
     
     // MARK: Actions
     @IBAction func noButtonClicked(_ sender: Any) {
