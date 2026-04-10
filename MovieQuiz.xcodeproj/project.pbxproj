@@ -12,6 +12,7 @@
 		055DBD5C2F6835630013237A /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055DBD5B2F6835610013237A /* NetworkClient.swift */; };
 		055DBD5E2F6839710013237A /* MostPopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055DBD5D2F68396F0013237A /* MostPopularMovies.swift */; };
 		055DBD602F683A320013237A /* MoviesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055DBD5F2F683A310013237A /* MoviesLoader.swift */; };
+		0569D2AC2F8913C5009A3199 /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0569D2AB2F8913C1009A3199 /* ApiKey.swift */; };
 		057B6B5A2F707978003010C8 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057B6B592F707978003010C8 /* AccessibilityIdentifiers.swift */; };
 		057B6B5C2F707EEF003010C8 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057B6B592F707978003010C8 /* AccessibilityIdentifiers.swift */; };
 		0587D07C2F29FEBF00DCE648 /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0587D07B2F29FEBF00DCE648 /* YS Display-Medium.ttf */; };
@@ -61,6 +62,7 @@
 		055DBD5B2F6835610013237A /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		055DBD5D2F68396F0013237A /* MostPopularMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostPopularMovies.swift; sourceTree = "<group>"; };
 		055DBD5F2F683A310013237A /* MoviesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesLoader.swift; sourceTree = "<group>"; };
+		0569D2AB2F8913C1009A3199 /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
 		057B6B592F707978003010C8 /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
 		0587D07A2F29FEBF00DCE648 /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
 		0587D07B2F29FEBF00DCE648 /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Medium.ttf"; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 		8F4738332848DE46005DF65E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0569D2AB2F8913C1009A3199 /* ApiKey.swift */,
 				AD1ABABC2831907F00B3E448 /* LaunchScreen.storyboard */,
 				AD1ABABA2831907F00B3E448 /* Assets.xcassets */,
 				AD1ABABF2831907F00B3E448 /* Info.plist */,
@@ -385,6 +388,7 @@
 				055DBD5C2F6835630013237A /* NetworkClient.swift in Sources */,
 				055DBD602F683A320013237A /* MoviesLoader.swift in Sources */,
 				05AA656C2F6032860033F179 /* QuizQuestion.swift in Sources */,
+				0569D2AC2F8913C5009A3199 /* ApiKey.swift in Sources */,
 				05AA656F2F6032CC0033F179 /* QuizStepViewModel.swift in Sources */,
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
 				05AA65772F603B460033F179 /* QuestionFactoryDelegate.swift in Sources */,
